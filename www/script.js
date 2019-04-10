@@ -10,6 +10,14 @@ downloadBtn.addEventListener('click', () => {
     sendFile(urlInput.value);
 })
 
+// when Enter is pressed
+urlInput.addEventListener('keydown', () => {
+    if (event.key === 'Enter') {
+        event.preventDefault()
+        sendFile(urlInput.value);
+    }
+})
+
 function sendFile(URL) {
     fetch(`http://localhost:3000/download?URL=${URL}`, {
             method: 'GET'
@@ -20,6 +28,7 @@ function sendFile(URL) {
             thumnail.src = data.thumbnail_url;
             title.innerHTML = data.title;
             document.querySelector('.video_info').style.display = 'block';
+            urlInput.value = "";
         })
         .catch(e => console.error(e));
 }
